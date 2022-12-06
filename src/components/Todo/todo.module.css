@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Vazir";
+}
+:root {
+  --primaryColor: #6d28d9;
+  --secondaryColor: #ede9fe;
+  --mainWhite: #ffffff;
+  --mainBlack: #222;
+  --mainGray: #7c7c7c;
+  --mainRed: #dc2626;
+  --bodyColor: #0f172a;
+  --bodyColorLightMode: #f1f5f9;
+}
+
+.todoPosition {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5rem;
+}
+.todoBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20rem;
+  padding: 0.9rem;
+  border: 2px solid var(--primaryColor);
+  border-radius: 15px;
+  background-color: var(--secondaryColor);
+}
+.todoBlock div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.trashIcon {
+  cursor: pointer;
+  color: var(--mainWhite);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mainRed);
+  border-radius: 100%;
+  padding: 0.4rem;
+  transition: 0.2s;
+  scale: 0.95;
+}
+.trashIcon:hover {
+  rotate: 360deg;
+}
+
+.checkIcon {
+  cursor: pointer;
+  color: var(--mainWhite);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primaryColor);
+  border-radius: 100%;
+  padding: 0.4rem;
+  transition: 0.2s;
+  scale: 0.9;
+}
+.checkIcon:hover {
+  rotate: -360deg;
+}
