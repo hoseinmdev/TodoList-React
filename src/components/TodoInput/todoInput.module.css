@@ -1,0 +1,34 @@
+:root {
+  --primaryColor: #6d28d9;
+  --secondaryColor: #ede9fe;
+  --mainWhite: #ffffff;
+  --mainBlack: #222;
+  --mainGray: #7c7c7c;
+  --mainRed: #dc2626;
+  --bodyColorLightMode: #f1f5f9;
+}
+.todoInput {
+  overflow: hidden;
+  border-radius: 12px;
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid var(--primaryColor);
+}
+.todoInput input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.todoInput button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--primaryColor);
+  color: var(--mainWhite);
+
+  padding: 0.5rem;
+  font-size: 1rem;
+  transition: 0.3s;
+}
