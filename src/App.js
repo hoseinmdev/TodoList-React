@@ -1,8 +1,8 @@
-import Todo from "./components/Todo/Todo";
+// import Todo from "./components/Todo/Todo";
+import TodoApp from "./components/TodoApp/TodoApp";
 
 const App = () => {
-    console.log("hi hosein")
-    return ( <Todo title="dasdsa"/> );
+    return ( <TodoApp/> );
 }
  
 export default App;

@@ -16,19 +16,13 @@
   --bodyColorLightMode: #f1f5f9;
 }
 
-.todoPosition {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 5rem;
-}
 .todoBlock {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 20rem;
-  padding: 0.9rem;
-  border: 2px solid var(--primaryColor);
+  height: 3rem;
+  padding: 0.8rem;
   border-radius: 15px;
   background-color: var(--secondaryColor);
 }
@@ -40,32 +34,30 @@
 }
 .trashIcon {
   cursor: pointer;
-  color: var(--mainWhite);
+  color: var(--mainRed);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--mainRed);
   border-radius: 100%;
   padding: 0.4rem;
-  transition: 0.2s;
-  scale: 0.95;
+  transition: all 0.3s;
 }
 .trashIcon:hover {
-  rotate: 360deg;
+  background-color: var(--mainRed);
+  color: var(--mainWhite);
 }
 
 .checkIcon {
   cursor: pointer;
-  color: var(--mainWhite);
+  color: var(--primaryColor);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primaryColor);
   border-radius: 100%;
   padding: 0.4rem;
   transition: 0.2s;
-  scale: 0.9;
 }
 .checkIcon:hover {
-  rotate: -360deg;
+  color: var(--mainWhite);
+  background-color: var(--primaryColor);
 }

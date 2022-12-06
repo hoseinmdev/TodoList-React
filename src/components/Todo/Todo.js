@@ -3,9 +3,9 @@ import { FaTrash, FaCheck } from "react-icons/fa";
 
 const Todo = ({title}) => {
   return (
-    <div className={styles.todoPosition}>
+    <div>
       <div className={styles.todoBlock}>
-        <p>{title}</p>
+        <p>{title}یسشیشس</p>
         <div>
           <span className={styles.trashIcon}>
             <FaTrash />
