@@ -3,8 +3,6 @@ import { FaTrash, FaCheck } from "react-icons/fa";
 import { useTodosContext } from "../TodoApp/TodoApp";
 import { toast } from "react-hot-toast";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const Todo = ({ title, id, date }) => {
   const { dispatch } = useTodosContext();
 
@@ -12,8 +10,9 @@ const Todo = ({ title, id, date }) => {
     toast.error("تودو حذف شد");
     dispatch({ id: id, type: "deleteTodo" });
   };
-  const completeHandler = (e) => {
-    console.log("completed");
+  const completeHandler = () => {
+    toast.success("به لیست انجام شده ها اضافه شد")
+    // dispatch({ id: id, type: "deleteTodo" });
   };
   return (
     <div>

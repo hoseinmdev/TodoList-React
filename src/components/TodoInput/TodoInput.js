@@ -1,7 +1,7 @@
 import { useState, useRef, useContext } from "react";
 import styles from "./todoInput.module.css";
 import { useTodosContext } from "../TodoApp/TodoApp";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const TodoInput = () => {
   const [value, setValue] = useState("");
@@ -34,27 +34,6 @@ const TodoInput = () => {
           افزودن
         </button>
       </div>
-
-      <Toaster
-        toastOptions={{
-          success: {
-            iconTheme: {
-              primary: "#6d28d9",
-              secondary: "white",
-            },
-          },
-          error: {
-            style: {
-              color: "#dc2626",
-            },
-          },
-          style: {
-            color: "#6d28d9",
-          },
-        }}
-        position="top-left"
-        reverseOrder={true}
-      />
     </div>
   );
 };
