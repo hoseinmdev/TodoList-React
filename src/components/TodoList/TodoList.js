@@ -1,27 +1,27 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import Todo from "../Todo/Todo";
 import { useTodosContext } from "../TodoApp/TodoApp";
-import TodoInput from "../TodoInput/TodoInput";
 import styles from "./todolist.module.css";
 const TodoList = () => {
-  const { dispatch, state } = useTodosContext();
+  const { state } = useTodosContext();
 
-  useEffect(() => {
-    console.log("reloaded")
-  }, [state]);
-  
+  useEffect(() => {}, [state]);
+
   return (
-    <div className={styles.todoContainer}>
-      {state.map((todo) => {
-        return (
-          <Todo
-            key={todo.id}
-            title={todo.title}
-            id={todo.id}
-            date={todo.date}
-          />
-        );
-      })}
+    <div>
+    {state.length === 0 ? <h1 className={styles.notTodoBlock}>درحال حاظر هیچ تودویی وجود ندارد</h1> : ""}
+      <div className={styles.todoContainer}>
+        {state.map((todo) => {
+          return (
+            <Todo
+              key={todo.id}
+              title={todo.title}
+              id={todo.id}
+              date={todo.date}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -2,23 +2,9 @@ import styles from "./todoApp.module.css";
 import { v4 as uuid } from "uuid";
 import { createContext, useContext, useReducer } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import TodoInput from "../TodoInput/TodoInput";
 export const TodoContext = createContext();
 
 const TodoApp = ({ children }) => {
-  // const completeTodoHandler = (id) => {
-  //   const completedTodo = todo.map((todo) => {
-  //     if (todo.id === id) {
-  //       if (todo.isCompleted === true) {
-  //         todo.isCompleted = false;
-  //       } else {
-  //         todo.isCompleted = true;
-  //       }
-  //     }
-  //     return todo;
-  //   });
-  //   setTodo(completedTodo);
-  // };
 
   const reducer = (state, action) => {
     if (action.type === "addTodo") {

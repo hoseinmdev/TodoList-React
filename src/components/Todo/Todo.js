@@ -1,10 +1,10 @@
 import styles from "./todo.module.css";
-
 import { FaTrash, FaCheck, FaUserEdit, FaTimes } from "react-icons/fa";
 import { useTodosContext } from "../TodoApp/TodoApp";
 import { toast } from "react-hot-toast";
 import { useRef, useState, useEffect } from "react";
 import TodoInput from "../TodoInput/TodoInput";
+
 
 const Todo = ({ title, id, date }) => {
   const [show, setShow] = useState(0);
@@ -26,7 +26,6 @@ const Todo = ({ title, id, date }) => {
     setTimeout(() => dispatch({ id: id, type: "deleteTodo" }), 110);
   };
   const editHandler = () => {
-    toast.success("ویرایش شد");
     if (!edit) {
       setIconShow(0);
       setTimeout(() => setIconShow(1), 110);
@@ -86,6 +85,7 @@ const Todo = ({ title, id, date }) => {
               buttonTitle={"ویرایش"}
               placeholder={"متن جدید را وارد کنید"}
               todoId={id}
+              setEdit={setEdit}
             />
           ) : (
             ""
