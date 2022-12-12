@@ -10,10 +10,10 @@
 .todoInput {
   overflow: hidden;
   border-radius: 12px;
-  width: 20rem;
   display: flex;
   justify-content: space-between;
   border: 2px solid var(--primaryColor);
+  transition: 0.3s;
 }
 .todoInput input {
   flex: 1;
@@ -32,5 +32,5 @@
   transition: 0.3s;
 }
 .todoInput button:hover{
-  background-color: #7c3aed;
+  background-color: #8b5cf6;
 }

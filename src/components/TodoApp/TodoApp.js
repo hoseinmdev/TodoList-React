@@ -2,6 +2,7 @@ import styles from "./todoApp.module.css";
 import { v4 as uuid } from "uuid";
 import { createContext, useContext, useReducer } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import TodoInput from "../TodoInput/TodoInput";
 export const TodoContext = createContext();
 
 const TodoApp = ({ children }) => {
@@ -35,13 +36,36 @@ const TodoApp = ({ children }) => {
       const updatedTodos = state.filter((todo) => todo.id !== action.id);
       return updatedTodos;
     }
+    if (action.type === "completeTodo") {
+      const completedTodo = state.map((todo) => {
+        if (todo.id === action.id) {
+          if (todo.isCompleted === true) {
+            todo.isCompleted = false;
+          } else {
+            todo.isCompleted = true;
+          }
+        }
+        return todo;
+      });
+      return completedTodo;
+    }
+    if (action.type === "editTodo") {
+      const todoEdited = state.map((todo) => {
+        if (todo.id === action.id) {
+          todo.title = action.value;
+        }
+        return todo;
+      });
+      return todoEdited;
+    }
   };
 
-  const [state, dispatch] = useReducer(reducer, []);
+  const initialState = [];
+  const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
   return (
     <div className={styles.todoPosition}>
-      <h1>اپلیکیشن تودولیست</h1>
+      <h1>اپلیکیشن تودولیست / React.js</h1>
       <TodoContext.Provider value={value}>
         <Toaster
           toastOptions={{

@@ -1,39 +1,58 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect, useId } from "react";
 import styles from "./todoInput.module.css";
 import { useTodosContext } from "../TodoApp/TodoApp";
 import { toast } from "react-hot-toast";
 
-const TodoInput = () => {
-  const [value, setValue] = useState("");
-  const inputBox = useRef();
+const TodoInput = ({ buttonTitle, placeholder, todoValue = "", todoId }) => {
+  const [show, setShow] = useState(0);
+  const [value, setValue] = useState(todoValue);
   const { dispatch } = useTodosContext();
 
-  const clickHandler = (e) => {
+  useEffect(() => {
+    setShow(1);
+  }, []);
+
+  const addTodoHandler = () => {
     if (value === "") {
-      alert("dsada");
+      toast.error("عنوان را وارد کنید");
     } else {
       toast.success("تودو اضافه شد");
       dispatch({ value: value, type: "addTodo" });
     }
-    inputBox.current.value = "";
+    setValue("");
   };
+  const editTodoHandler = () => {
+    setShow(0);
+    setTimeout(
+      () => dispatch({ id: todoId, value: value, type: "editTodo" }),
+      150
+    );
+  };
+
   return (
     <div>
-      <div className={styles.todoInput}>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className={styles.todoInput}
+        style={{ opacity: `${show}` }}
+      >
         <input
           onChange={(e) => setValue(e.target.value)}
-          placeholder="عنوان را وارد کنید"
-          ref={inputBox}
+          placeholder={placeholder ? placeholder : "عنوان را وارد کنید"}
+          type="text"
+          value={value}
+          minLength={1}
+          maxLength={18}
         />
         <button
           onClick={() => {
-            clickHandler();
+            !buttonTitle ? addTodoHandler() : editTodoHandler();
             setValue("");
           }}
         >
-          افزودن
+          {buttonTitle ? buttonTitle : "افزودن"}
         </button>
-      </div>
+      </form>
     </div>
   );
 };
