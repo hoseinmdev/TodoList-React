@@ -5,11 +5,10 @@ import { toast } from "react-hot-toast";
 import { useRef, useState, useEffect } from "react";
 import TodoInput from "../TodoInput/TodoInput";
 
-
 const Todo = ({ title, id, date }) => {
   const [show, setShow] = useState(0);
   const [iconShow, setIconShow] = useState(0);
-  const [fade, setFade] = useState(1);
+  const [fade, setFade] = useState(0);
   const [edit, setEdit] = useState(false);
   const { dispatch, state } = useTodosContext();
   const todoBlockText = useRef();
@@ -19,11 +18,31 @@ const Todo = ({ title, id, date }) => {
     setShow(1);
     setFade(1);
   }, []);
+  useEffect(() => {
+    const findCompletedTodos = state.filter(
+      (todo) => todo.isCompleted !== false
+    );
+    const findTodo = state.find((todo) => todo.isCompleted);
+    if (findTodo) {
+      console.log(findTodo.id);
+      if (findTodo.id === id) {
+        setFade(0.5);
+      }
+    }
+    // if (id === findTodo.id) {
+    // }
+    // if (fade === 1) {
+    //   if (findCompletedTodos) {
+    //   } else {
+    //     setFade(1);
+    //   }
+    // }
+  }, [state]);
 
   const deleteHandler = () => {
     toast.error("تودو حذف شد");
     setShow(0);
-    setTimeout(() => dispatch({ id: id, type: "deleteTodo" }), 110);
+    setTimeout(() => dispatch({ id: id, type: "deleteTodo" }), 120);
   };
   const editHandler = () => {
     if (!edit) {

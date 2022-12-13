@@ -11,11 +11,13 @@ const TodoInput = ({
   setEdit,
 }) => {
   const [show, setShow] = useState(0);
+  const [fade, setFade] = useState(0)
   const [value, setValue] = useState(todoValue);
   const { dispatch } = useTodosContext();
 
   useEffect(() => {
-    setShow(1);
+    setShow(1)
+    setTimeout(() => setFade(1), 10);
   }, []);
 
   const addTodoHandler = () => {
@@ -39,11 +41,11 @@ const TodoInput = ({
 
   return (
     <div>
-      {show === 1 ? (
+      {show ? (
         <form
           onSubmit={(e) => e.preventDefault()}
           className={styles.todoInput}
-          style={{ opacity: `${show}` }}
+          style={{ transform: `scale(${fade})` }}
         >
           <input
             onChange={(e) => setValue(e.target.value)}

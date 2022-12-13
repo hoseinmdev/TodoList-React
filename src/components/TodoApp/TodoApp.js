@@ -1,11 +1,10 @@
 import styles from "./todoApp.module.css";
 import { v4 as uuid } from "uuid";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 export const TodoContext = createContext();
 
 const TodoApp = ({ children }) => {
-
   const reducer = (state, action) => {
     if (action.type === "addTodo") {
       const unique_id = uuid();
@@ -16,14 +15,18 @@ const TodoApp = ({ children }) => {
         date: new Date().toLocaleDateString("fa-IR", options),
         isCompleted: false,
       };
-      return [...state, newTodo];
+      return {
+        ...state,
+        backup: [...state.backup, newTodo],
+        todos: [...state.todos, newTodo],
+      };
     }
     if (action.type === "deleteTodo") {
-      const updatedTodos = state.filter((todo) => todo.id !== action.id);
-      return updatedTodos;
+      const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
+      return { backup: updatedTodos, todos: updatedTodos };
     }
     if (action.type === "completeTodo") {
-      const completedTodo = state.map((todo) => {
+      const completedTodo = state.todos.map((todo) => {
         if (todo.id === action.id) {
           if (todo.isCompleted === true) {
             todo.isCompleted = false;
@@ -33,22 +36,47 @@ const TodoApp = ({ children }) => {
         }
         return todo;
       });
-      return completedTodo;
+      return { backup: completedTodo, todos: completedTodo };
     }
     if (action.type === "editTodo") {
-      const todoEdited = state.map((todo) => {
+      const todoEdited = state.todos.map((todo) => {
         if (todo.id === action.id) {
           todo.title = action.value;
         }
         return todo;
       });
-      return todoEdited;
+      return { backup: todoEdited, todos: todoEdited };
+    }
+    if (action.type === "all") {
+      return { backup: state.backup, todos: state.backup };
+    }
+    if (action.type === "completed") {
+      const completedTodos = state.backup.filter(
+        (todo) => todo.isCompleted !== false
+      );
+      return {
+        backup: state.backup,
+        todos: completedTodos.length !== 0 ? completedTodos : state.backup ,
+      };
+    }
+    if (action.type === "unCompleted") {
+      const unCompletedTodos = state.backup.filter(
+        (todo) => todo.isCompleted === false
+      );
+      return {
+        backup: state.backup,
+        todos: unCompletedTodos.length !== 0 ? unCompletedTodos : state.backup,
+      };
     }
   };
 
-  const initialState = [];
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
+  const [state, dispatch] = useReducer(reducer, { todos: [], backup: [] });
+  // useEffect(() => {
+  //   if (state.length !== 0) {
+  //     localStorage.setItem("todos", JSON.stringify(state));
+  //   }
+  // }, [state]);
+  const value = { state: state.todos, dispatch };
   return (
     <div className={styles.todoPosition}>
       <h1>اپلیکیشن تودولیست / React.js</h1>
