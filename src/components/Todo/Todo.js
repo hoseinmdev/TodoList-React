@@ -1,42 +1,33 @@
-import styles from "./todo.module.css";
-import { FaTrash, FaCheck, FaUserEdit, FaTimes } from "react-icons/fa";
-import { useTodosContext } from "../TodoApp/TodoApp";
-import { toast } from "react-hot-toast";
-import { useRef, useState, useEffect } from "react";
 import TodoInput from "../TodoInput/TodoInput";
+import { useTodosContext } from "../TodoApp/TodoApp";
+import { useState, useEffect } from "react";
+import { FaTrash, FaCheck, FaUserEdit, FaTimes } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+import styles from "./todo.module.css";
 
 const Todo = ({ title, id, date }) => {
   const [show, setShow] = useState(0);
   const [iconShow, setIconShow] = useState(0);
+  const [completedIconShow, setCompletedIconShow] = useState(0);
   const [fade, setFade] = useState(0);
   const [edit, setEdit] = useState(false);
   const { dispatch, state } = useTodosContext();
-  const todoBlockText = useRef();
+  const getTodos = JSON.parse(localStorage.getItem("todos"));
 
   useEffect(() => {
     setIconShow(1);
+    setCompletedIconShow(1);
     setShow(1);
     setFade(1);
   }, []);
   useEffect(() => {
-    const findCompletedTodos = state.filter(
-      (todo) => todo.isCompleted !== false
-    );
-    const findTodo = state.find((todo) => todo.isCompleted);
+    const findTodo = getTodos.todos.find((todo) => todo.isCompleted);
     if (findTodo) {
       console.log(findTodo.id);
       if (findTodo.id === id) {
         setFade(0.5);
       }
     }
-    // if (id === findTodo.id) {
-    // }
-    // if (fade === 1) {
-    //   if (findCompletedTodos) {
-    //   } else {
-    //     setFade(1);
-    //   }
-    // }
   }, [state]);
 
   const deleteHandler = () => {
@@ -58,11 +49,13 @@ const Todo = ({ title, id, date }) => {
   const completeHandler = () => {
     if (fade === 1) {
       setFade(0.5);
-      todoBlockText.current.classList.toggle(styles.todoCompletedText);
+      setCompletedIconShow(0);
+      setTimeout(() => setCompletedIconShow(1), 110);
       toast.success("به لیست انجام شده ها اضافه شد");
     } else {
       setFade(1);
-      todoBlockText.current.classList.remove(styles.todoCompletedText);
+      setCompletedIconShow(0);
+      setTimeout(() => setCompletedIconShow(1), 110);
       toast.error("از لیست انجام شده ها حذف شد");
     }
     dispatch({ id: id, type: "completeTodo" });
@@ -75,7 +68,7 @@ const Todo = ({ title, id, date }) => {
       >
         <div>
           <div className={`${styles.todoTitleDate}`}>
-            <p ref={todoBlockText}>{title}</p>
+            <p>{title}</p>
             <p>تاریخ : {date}</p>
           </div>
           <div>
@@ -92,8 +85,9 @@ const Todo = ({ title, id, date }) => {
             <span
               onClick={() => completeHandler()}
               className={styles.checkIcon}
+              style={{ scale: `${completedIconShow}` }}
             >
-              <FaCheck />
+              {fade === 0.5 ? <FaTimes /> : <FaCheck />}
             </span>
           </div>
         </div>

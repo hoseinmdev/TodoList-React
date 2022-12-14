@@ -6,19 +6,20 @@ import styles from "./todolist.module.css";
 const TodoList = () => {
   const { state } = useTodosContext();
   useEffect(() => {}, [state]);
-  
+  const getTodos = JSON.parse(localStorage.getItem("todos"));
+  console.log(getTodos)
   return (
     <div>
-      {state.length === 0 ? (
+      {!getTodos ? (
         <h1 className={styles.notTodoBlock}>
           درحال حاظر هیچ تودویی وجود ندارد
         </h1>
       ) : (
         ""
       )}
-      {state.length === 0 ? "" : <TodoFilter />}
+      {!getTodos ? "" : <TodoFilter />}
       <div className={styles.todoContainer}>
-        {state.map((todo) => {
+        {getTodos? getTodos.todos.map((todo) => {
           return (
             <Todo
               key={todo.id}
@@ -27,7 +28,7 @@ const TodoList = () => {
               date={todo.date}
             />
           );
-        })}
+        }) : ""}
       </div>
     </div>
   );

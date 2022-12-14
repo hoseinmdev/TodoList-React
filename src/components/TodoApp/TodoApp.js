@@ -1,7 +1,7 @@
 import styles from "./todoApp.module.css";
 import { v4 as uuid } from "uuid";
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 export const TodoContext = createContext();
 
 const TodoApp = ({ children }) => {
@@ -36,6 +36,7 @@ const TodoApp = ({ children }) => {
         }
         return todo;
       });
+      localStorage.setItem("todos", JSON.stringify(completedTodo));
       return { backup: completedTodo, todos: completedTodo };
     }
     if (action.type === "editTodo") {
@@ -47,6 +48,7 @@ const TodoApp = ({ children }) => {
       });
       return { backup: todoEdited, todos: todoEdited };
     }
+    // Filter todos actions
     if (action.type === "all") {
       return { backup: state.backup, todos: state.backup };
     }
@@ -54,29 +56,36 @@ const TodoApp = ({ children }) => {
       const completedTodos = state.backup.filter(
         (todo) => todo.isCompleted !== false
       );
+      localStorage.setItem("todos", JSON.stringify(completedTodos));
       return {
         backup: state.backup,
-        todos: completedTodos.length !== 0 ? completedTodos : state.backup ,
+        todos: completedTodos.length !== 0 ? completedTodos : state.backup,
       };
     }
     if (action.type === "unCompleted") {
       const unCompletedTodos = state.backup.filter(
         (todo) => todo.isCompleted === false
       );
+      localStorage.setItem("todos", JSON.stringify(unCompletedTodos));
+
       return {
         backup: state.backup,
         todos: unCompletedTodos.length !== 0 ? unCompletedTodos : state.backup,
       };
     }
   };
-
   const [state, dispatch] = useReducer(reducer, { todos: [], backup: [] });
+  if (state.backup.length !== 0) {
+    localStorage.setItem("todos", JSON.stringify(state));
+  }
+  // Set todos in local storage
   // useEffect(() => {
-  //   if (state.length !== 0) {
+  //   if (state.backup.length !== 0) {
   //     localStorage.setItem("todos", JSON.stringify(state));
   //   }
   // }, [state]);
   const value = { state: state.todos, dispatch };
+
   return (
     <div className={styles.todoPosition}>
       <h1>اپلیکیشن تودولیست / React.js</h1>

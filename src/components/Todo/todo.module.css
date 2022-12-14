@@ -40,9 +40,6 @@
   display: flex;
   flex-direction: column;
 }
-.todoCompletedText {
-  text-decoration: line-through;
-}
 .trashIcon {
   cursor: pointer;
   color: var(--mainRed);
