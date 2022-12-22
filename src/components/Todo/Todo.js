@@ -23,7 +23,6 @@ const Todo = ({ title, id, date }) => {
   useEffect(() => {
     const findTodo = getTodos.todos.find((todo) => todo.isCompleted);
     if (findTodo) {
-      console.log(findTodo.id);
       if (findTodo.id === id) {
         setFade(0.5);
       }

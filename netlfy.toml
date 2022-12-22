@@ -1,0 +1,3 @@
+[buidl]
+base = "react-todoList-app"
+command = "CI= npm run build""

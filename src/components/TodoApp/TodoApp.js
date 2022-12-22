@@ -78,12 +78,6 @@ const TodoApp = ({ children }) => {
   if (state.backup.length !== 0) {
     localStorage.setItem("todos", JSON.stringify(state));
   }
-  // Set todos in local storage
-  // useEffect(() => {
-  //   if (state.backup.length !== 0) {
-  //     localStorage.setItem("todos", JSON.stringify(state));
-  //   }
-  // }, [state]);
   const value = { state: state.todos, dispatch };
 
   return (
